@@ -117,11 +117,18 @@
   display: none;
 }
 
+/* 全站去除顶部导航栏与页脚（问卷全屏一体化） */
+.md-header,
+.md-footer {
+  display: none !important;
+}
+
 /* 内容列居中并适度收窄，避免问卷文字拉得过宽 */
 .md-content__inner {
   max-width: 46rem;
   margin-left: auto;
   margin-right: auto;
+  padding: 2.5rem 1.25rem 3.5rem;
 }
 
 /* 知情同意说明框 */

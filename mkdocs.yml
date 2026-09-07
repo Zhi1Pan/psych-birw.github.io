@@ -10,6 +10,9 @@ extra_css:
   - stylesheets/birthday.css
 markdown_extensions:
   - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 # 为了不暴露问卷结构，导航只保留一个"开始填写"，实际不显示具体页
 nav:
   - 调研说明: index.md
