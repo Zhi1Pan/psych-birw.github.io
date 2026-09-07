@@ -1,0 +1,172 @@
+/* 调研进度条 */
+.bci-progress {
+  background: rgba(33, 150, 243, 0.15);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+  margin: 0.4rem 0 0.3rem;
+}
+
+.bci-progress > div {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #64B5F6, #1976D2);
+}
+
+.bci-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #5e6b78;
+  margin-bottom: 1.4rem;
+  border-bottom: 1px dashed rgba(33, 150, 243, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.bci-meta .bci-note {
+  color: #1976D2;
+  font-weight: 700;
+}
+
+/* 答题选项按钮化（纯链接，无 JS） */
+.md-typeset ul.bci-opts {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0 1.6rem;
+}
+
+.md-typeset ul.bci-opts li {
+  margin: 0;
+}
+
+.md-typeset ul.bci-opts a {
+  display: block;
+  border: 1px solid rgba(33, 150, 243, 0.4);
+  background: rgba(33, 150, 243, 0.04);
+  border-radius: 10px;
+  padding: 0.8rem 1.1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset ul.bci-opts a:hover {
+  background: rgba(33, 150, 243, 0.12);
+  border-color: #1976D2;
+}
+
+/* 底部小字提示 */
+.bci-foot {
+  font-size: 0.75rem;
+  color: #90a4ae;
+  margin-top: 1.2rem;
+}
+
+/* 被试编号录入表单 */
+.md-typeset .survey-form {
+  max-width: 32rem;
+  margin: 1.6rem auto 0.6rem;
+}
+
+.md-typeset .survey-form label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.md-typeset .survey-form input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: 1px solid rgba(33, 150, 243, 0.45);
+  border-radius: 8px;
+}
+
+.md-typeset .survey-form input[type="text"]:focus {
+  outline: none;
+  border-color: #1976D2;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+}
+
+.md-typeset .survey-form .submit-btn {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  background: linear-gradient(90deg, #1E88E5, #1976D2);
+  color: #fff !important;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin-top: 1.2rem;
+}
+
+.md-typeset .survey-form .submit-btn:hover {
+  background: linear-gradient(90deg, #1976D2, #1565C0);
+}
+
+/* 隐藏左右两侧边栏，呈现严谨问卷全宽表单样式 */
+.md-sidebar--primary,
+.md-sidebar--secondary {
+  display: none;
+}
+
+/* 内容列居中并适度收窄，避免问卷文字拉得过宽 */
+.md-content__inner {
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 知情同意说明框 */
+.md-typeset .consent-box {
+  border: 1px solid rgba(33, 150, 243, 0.35);
+  border-left: 4px solid #1976D2;
+  background: rgba(33, 150, 243, 0.04);
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  margin: 1.2rem 0 1.6rem;
+}
+
+.md-typeset .consent-box ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.md-typeset .consent-box li {
+  margin: 0.35rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.md-typeset .consent-box li::before {
+  content: "✔";
+  color: #1976D2;
+  position: absolute;
+  left: 0;
+}
+
+/* "开始作答"按钮 */
+.md-typeset .start-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(90deg, #1E88E5, #1976D2);
+  color: #fff !important;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin: 1.6rem auto 0.4rem;
+  max-width: 24rem;
+  text-decoration: none;
+}
+
+.md-typeset .start-btn:hover {
+  background: linear-gradient(90deg, #1976D2, #1565C0);
+}
