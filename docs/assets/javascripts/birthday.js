@@ -200,9 +200,11 @@
   };
   var exts = ["png", "gif", "webp"];
 
-  /* 资源目录：取当前页面所在目录，保证部署在任意子路径都能加载 */
-  var m = (location.pathname || "/").match(/.*\//);
-  var BASE = m ? m[0] : "/";
+  /* 资源目录：取当前页面所在目录的上一级（资源位于站点根 assets/），
+     兼容部署在任意子路径的情况 */
+  var _p = (location.pathname || "/");
+  if (_p.length > 1 && _p.charAt(_p.length - 1) === "/") _p = _p.slice(0, -1);
+  var BASE = _p.substring(0, _p.lastIndexOf("/") + 1);
 
   function load() {
     Object.keys(items).forEach(function (k) {
