@@ -132,10 +132,20 @@
 }
 
 /* 内容列居中并适度收窄，避免问卷文字拉得过宽 */
-.md-content__inner {
+body:not(:has(.bday-root)) .md-main__inner {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+body:not(:has(.bday-root)) .md-content {
+  width: 100%;
+  min-width: 0;
+}
+
+body:not(:has(.bday-root)) .md-content__inner {
   max-width: 46rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
   padding: 2.5rem 1.25rem 3.5rem;
 }
 
