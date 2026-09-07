@@ -1,0 +1,15 @@
+site_name: 脑机接口公众态度调研
+theme:
+  name: material
+  language: zh
+  palette:
+    primary: blue
+    accent: cyan
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/birthday.css
+markdown_extensions:
+  - attr_list
+# 为了不暴露问卷结构，导航只保留一个"开始填写"，实际不显示具体页
+nav:
+  - 调研说明: index.md

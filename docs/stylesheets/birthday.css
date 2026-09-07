@@ -1,0 +1,397 @@
+/* ===== 生日页：夜空物理烟花 四幕全屏惊喜（canvas 由 birthday.js 驱动）===== */
+
+/* —— 幕前准备：去掉导航/页脚/侧栏，整页一体化 —— */
+body:has(.bday-root) .md-header,
+body:has(.bday-root) .md-footer,
+body:has(.bday-root) .md-sidebar--primary,
+body:has(.bday-root) .md-sidebar--secondary {
+  display: none !important;
+}
+
+/* 夜空渐变：同时铺满 html 与 body，并让所有内容容器透明 —— 杜绝滚动时的背景分界线 */
+html:has(.bday-root),
+body:has(.bday-root) {
+  background: radial-gradient(135% 120% at 50% 0%, #2a4380 0%, #152244 36%, #0a1026 66%, #05070f 100%);
+  background-attachment: fixed;
+}
+
+body:has(.bday-root) .md-main,
+body:has(.bday-root) .md-main__inner,
+body:has(.bday-root) .md-content,
+body:has(.bday-root) .md-content__inner {
+  background: transparent !important;
+}
+
+body:has(.bday-root) .md-content__inner {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body:has(.bday-root) .md-content {
+  padding-top: 0;
+}
+
+/* —— 物理烟花画布 —— */
+#fwSky {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
+
+/* —— 星光层 —— */
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star-layer {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.star-layer.s1 {
+  animation: twinkle 3.6s ease-in-out infinite;
+  box-shadow:
+    6px 22px 1px #fff,
+    48px 9px 0 rgba(255,255,255,.85),
+    96px 34px 1px #fff,
+    150px 18px 0 rgba(255,255,255,.8),
+    210px 48px 1px #fff,
+    265px 12px 0 rgba(255,255,255,.9),
+    315px 40px 1px #fff,
+    360px 25px 0 rgba(255,255,255,.75),
+    430px 15px 1px #fff,
+    480px 55px 0 rgba(255,255,255,.85),
+    540px 30px 1px #fff,
+    610px 8px 0 rgba(255,255,255,.9),
+    675px 48px 1px #fff,
+    740px 20px 0 rgba(255,255,255,.8),
+    810px 10px 1px #fff,
+    870px 35px 0 rgba(255,255,255,.85);
+}
+
+.star-layer.s2 {
+  top: 90px;
+  width: 1.5px;
+  height: 1.5px;
+  background: #bcd3ff;
+  animation: twinkle 5.2s ease-in-out 1.2s infinite;
+  box-shadow:
+    24px 60px 0 #bcd3ff,
+    80px 110px 1px #dbe8ff,
+    135px 78px 0 rgba(188,211,255,.8),
+    195px 130px 1px #dbe8ff,
+    252px 90px 0 #bcd3ff,
+    310px 150px 1px rgba(219,232,255,.85),
+    372px 100px 0 #bcd3ff,
+    430px 165px 1px #dbe8ff,
+    500px 120px 0 rgba(188,211,255,.85),
+    560px 175px 1px #dbe8ff,
+    630px 95px 0 #bcd3ff,
+    700px 140px 1px rgba(219,232,255,.8),
+    775px 105px 0 #bcd3ff,
+    855px 170px 1px #dbe8ff;
+}
+
+.star-layer.s3 {
+  top: 190px;
+  width: 1.5px;
+  height: 1.5px;
+  background: #fff;
+  animation: twinkle 4.4s ease-in-out 0.6s infinite;
+  box-shadow:
+    36px 80px 1px rgba(255,255,255,.8),
+    118px 40px 0 #fff,
+    190px 110px 1px rgba(255,255,255,.75),
+    258px 60px 0 #fff,
+    330px 130px 1px rgba(255,255,255,.8),
+    400px 70px 0 #fff,
+    470px 150px 1px rgba(255,255,255,.7),
+    545px 55px 0 #fff,
+    620px 120px 1px rgba(255,255,255,.8),
+    690px 160px 0 #fff,
+    760px 85px 1px rgba(255,255,255,.75),
+    845px 55px 0 #fff,
+    900px 145px 1px rgba(255,255,255,.8);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* =========================================================
+   中央舞台：卡通蛋糕 + 小狗(顶) + 小猫/小兔(两侧)
+   ========================================================= */
+.scene {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.scene .cake,
+.scene .dog,
+.scene .cat,
+.scene .rabbit {
+  position: absolute;
+  opacity: 0;
+}
+
+.scene .cake {
+  left: 50%;
+  top: 62%;
+  font-size: 112px;
+  line-height: 1;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
+  animation: cake-pop 1.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+}
+
+@keyframes cake-pop {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.2) translateY(40px); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1) translateY(0); }
+}
+
+.scene .dog {
+  left: 50%;
+  top: 34%;
+  font-size: 58px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+  animation:
+    friend-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 2.0s forwards,
+    friend-bob 1.7s ease-in-out 2.9s infinite;
+}
+
+.scene .cat {
+  left: 62%;
+  top: 56%;
+  font-size: 50px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+  animation:
+    friend-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s forwards,
+    friend-bob 1.9s ease-in-out 4.8s infinite;
+}
+
+.scene .rabbit {
+  left: 37%;
+  top: 56%;
+  font-size: 50px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+  animation:
+    friend-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 3.0s forwards,
+    friend-bob 2.0s ease-in-out 4.0s infinite;
+}
+
+/* 表情包图片（透明底抠图，从 /assets/stickers/ 加载） */
+.scene .cake img,
+.scene .dog img,
+.scene .cat img,
+.scene .rabbit img {
+  display: block;
+  height: auto;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+}
+
+.scene .cake img {
+  width: min(380px, 80vw, 40vh);
+}
+
+.scene .dog img {
+  width: 120px;
+  border-radius: 18px;
+  box-shadow: 0 0 0 6px #ffffff, 0 14px 26px rgba(0, 0, 0, 0.5);
+}
+
+.scene .cat img {
+  width: 148px;
+}
+
+.scene .rabbit img {
+  width: 148px;
+}
+
+@keyframes friend-pop {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.1); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes friend-bob {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50%      { transform: translate(-50%, -50%) translateY(-9px); }
+}
+
+/* —— 卡通全部浮现后出现的「点击继续」（低调弱存在）—— */
+.cont-btn {
+  position: fixed;
+  left: 50%;
+  bottom: 7%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.88);
+  padding: 0.5rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  animation: show-cont 0.6s ease 5.6s forwards;
+}
+
+.cont-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.cont-btn .ic {
+  font-size: 0.8em;
+  opacity: 0.9;
+  display: inline-block;
+  animation: ic-bounce 1.4s ease-in-out infinite;
+}
+
+.cont-btn .ic:last-child {
+  animation-delay: 0.2s;
+}
+
+@keyframes show-cont {
+  0%   { opacity: 0; visibility: visible; }
+  100% { opacity: 1; visibility: visible; }
+}
+
+@keyframes ic-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* =========================================================
+   幕三 / 幕四：点击后浮现照片，最后呈现文字
+   ========================================================= */
+#photos {
+  display: none;
+  position: relative;
+  z-index: 5;
+  padding: 2.6rem 1.2rem 3.8rem;
+}
+
+#photos:target {
+  display: block;
+}
+
+#photos:target ~ #s0 {
+  display: none;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2.2rem auto 1.6rem;
+  max-width: 62rem;
+}
+
+.gallery figure {
+  margin: 0;
+}
+
+.gallery img {
+  width: 320px;
+  max-width: 86vw;
+  border-radius: 14px;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  animation: img-rise 2.4s ease-out forwards;
+}
+
+.gallery img.d1 { animation-delay: 0.3s; }
+.gallery img.d2 { animation-delay: 1.3s; }
+.gallery img.d3 { animation-delay: 2.3s; }
+
+.gallery figcaption {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #aab6ca;
+}
+
+@keyframes img-rise {
+  from { opacity: 0; transform: translateY(26px) scale(0.97); filter: blur(3px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.final-note {
+  max-width: 42rem;
+  margin: 1rem auto 2.4rem;
+  padding: 0 1rem;
+  text-align: center;
+  color: #eaf1ff;
+  opacity: 0;
+  animation: text-rise 1.8s ease-out 5.4s forwards;
+}
+
+@keyframes text-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.final-note .big-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 0 26px rgba(255, 158, 188, 0.65);
+}
+
+.final-note .sub-title {
+  color: #ff9db8;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+
+.final-note .msg {
+  font-size: 1.04rem;
+  line-height: 2.05;
+}
+
+.final-note .sign {
+  margin-top: 1.6rem;
+  font-weight: 700;
+  color: #ff9db8;
+}
+
+.replay {
+  text-align: center;
+  margin: 0 auto 1rem;
+  opacity: 0;
+  animation: text-rise 1s ease-out 7s forwards;
+}
+
+.replay a {
+  color: #8ecbff;
+  font-size: 0.92rem;
+  text-decoration: none;
+  border-bottom: 1px dashed #8ecbff;
+}

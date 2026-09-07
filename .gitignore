@@ -1,0 +1,15 @@
+# MkDocs 构建产物
+site/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 本地预览日志
+serve_log.txt
+serve_err.txt
+
+# 原始大图与备份（已复制压缩版本到 docs/assets/，无需上传）
+原图备份/
+IMG_*.jpg
+MTXX_*.jpg
