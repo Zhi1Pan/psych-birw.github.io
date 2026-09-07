@@ -112,9 +112,17 @@
 }
 
 /* 隐藏左右两侧边栏，呈现严谨问卷全宽表单样式 */
+.md-sidebar,
 .md-sidebar--primary,
-.md-sidebar--secondary {
-  display: none;
+.md-sidebar--secondary,
+[dir="ltr"] .md-sidebar--secondary,
+[dir="rtl"] .md-sidebar--secondary {
+  display: none !important;
+}
+
+/* 目录组件本身也不渲染占位 */
+.md-toc {
+  display: none !important;
 }
 
 /* 全站去除顶部导航栏与页脚（问卷全屏一体化） */
