@@ -14,10 +14,18 @@ body:has(.bday-root) {
   background: #0b0d1a url("../assets/images/hogwarts-bg.jpg") center / cover no-repeat fixed;
 }
 
-/* 第二幕（照片页）单独换一张城堡背景 */
+/* 第二幕（照片页）城堡背景 */
 html:has(#photos:target),
 body:has(#photos:target) {
   background-image: url("../assets/images/hogwarts-act2.jpg");
+}
+
+/* 第三幕（相册墙）用霍格沃茨肖像走廊背景（叠一层暗色，让照片墙更突出） */
+html:has(#wall:target),
+body:has(#wall:target) {
+  background-image:
+    linear-gradient(rgba(8, 10, 26, 0.4), rgba(8, 10, 26, 0.4)),
+    url("../assets/images/hogwarts-wall.jpg");
 }
 
 body:has(.bday-root) .md-main,
@@ -133,6 +141,173 @@ body:has(.bday-root) .md-content {
 @keyframes twinkle {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 1; }
+}
+
+/* =========================================================
+   额外魔法元素：光点 / 流星 / 薄雾 / 守护神 / 咒语 / 羽毛笔
+   ========================================================= */
+
+/* —— 金色魔法光点 —— */
+.sparkles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.spark {
+  position: absolute;
+  bottom: -24px;
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff7cf 0%, #ffd76b 55%, rgba(255, 180, 60, 0) 100%);
+  box-shadow: 0 0 8px rgba(255, 210, 120, 0.9);
+  opacity: 0;
+  animation: spark-rise var(--dur, 12s) linear var(--delay, 0s) infinite;
+}
+
+@keyframes spark-rise {
+  0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  12%  { opacity: 0.95; }
+  80%  { opacity: 0.6; }
+  100% { transform: translate(var(--dx, 0), -108vh) scale(1); opacity: 0; }
+}
+
+/* —— 流星 —— */
+.meteors {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.meteor {
+  position: absolute;
+  top: 6%;
+  left: -12%;
+  width: 170px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #eaf3ff 68%, #ffffff);
+  filter: drop-shadow(0 0 6px rgba(180, 220, 255, 0.9));
+  opacity: 0;
+  animation: meteor 14s linear infinite;
+}
+
+.meteor.m1 { top: 5%;  animation-delay: 0s;  animation-duration: 13s; }
+.meteor.m2 { top: 16%; animation-delay: 5s;  animation-duration: 16s; }
+.meteor.m3 { top: 10%; animation-delay: 10s; animation-duration: 18s; }
+
+@keyframes meteor {
+  0%   { transform: translate(0, 0) rotate(20deg); opacity: 0; }
+  3%   { opacity: 1; }
+  16%  { transform: translate(115vw, 42vh) rotate(20deg); opacity: 0; }
+  100% { transform: translate(115vw, 42vh) rotate(20deg); opacity: 0; }
+}
+
+/* —— 魔法薄雾 —— */
+.mist {
+  position: fixed;
+  left: -25%;
+  right: -25%;
+  bottom: 0;
+  height: 40vh;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 80% at 18% 100%, rgba(190, 210, 245, 0.34), transparent 72%),
+    radial-gradient(55% 88% at 52% 100%, rgba(170, 195, 240, 0.28), transparent 74%),
+    radial-gradient(58% 84% at 82% 100%, rgba(150, 180, 235, 0.30), transparent 72%);
+  filter: blur(16px);
+  animation: mist-drift 30s ease-in-out infinite alternate;
+}
+
+@keyframes mist-drift {
+  from { transform: translateX(-4%); }
+  to   { transform: translateX(4%); }
+}
+
+/* —— 守护神（银色发光小鹿，从右向左跑） —— */
+.patronus {
+  position: fixed;
+  bottom: 7%;
+  right: -170px;
+  font-size: 96px;
+  line-height: 1;
+  z-index: 3;
+  pointer-events: none;
+  filter: grayscale(1) brightness(1.9) contrast(0.85)
+          drop-shadow(0 0 10px rgba(185, 225, 255, 0.95))
+          drop-shadow(0 0 26px rgba(120, 180, 255, 0.7));
+  opacity: 0.82;
+  animation: patronus-run 16s linear infinite;
+}
+
+@keyframes patronus-run {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-36vw, -16px); }
+  50%  { transform: translate(-72vw, 0); }
+  75%  { transform: translate(-108vw, -14px); }
+  100% { transform: translate(-145vw, 0); }
+}
+
+/* 相册墙页：隐藏守护神小鹿 */
+body:has(#wall:target) .patronus {
+  display: none;
+}
+
+/* —— 咒语文字 —— */
+.spells {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.spell {
+  position: absolute;
+  font-family: Georgia, "Times New Roman", "STZhongsong", serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: #ffe9a8;
+  white-space: nowrap;
+  text-shadow: 0 0 10px rgba(255, 210, 120, 0.9), 0 0 22px rgba(255, 180, 60, 0.55);
+  opacity: 0;
+  animation: spell-fade 3.6s ease-in-out forwards;
+}
+
+@keyframes spell-fade {
+  0%   { opacity: 0; transform: translateY(8px) scale(0.96); }
+  18%  { opacity: 1; transform: translateY(0) scale(1); }
+  70%  { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* —— 漂浮羽毛笔 —— */
+.quill {
+  position: fixed;
+  top: 24%;
+  left: -90px;
+  font-size: 44px;
+  line-height: 1;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(255, 225, 150, 0.8));
+  opacity: 0;
+  animation: quill-drift 24s ease-in-out infinite;
+}
+
+@keyframes quill-drift {
+  0%   { transform: translate(0, 0) rotate(-14deg); opacity: 0; }
+  8%   { opacity: 0.9; }
+  45%  { transform: translate(55vw, 12vh) rotate(12deg); }
+  80%  { transform: translate(105vw, -6vh) rotate(-8deg); opacity: 0.9; }
+  92%  { opacity: 0; }
+  100% { transform: translate(130vw, 0) rotate(0deg); opacity: 0; }
 }
 
 /* =========================================================
@@ -342,6 +517,143 @@ body:has(.bday-root) .md-content {
   display: none;
 }
 
+/* —— 第三幕：霍格沃茨魔法相册照片墙 —— */
+#wall {
+  display: none;
+  position: relative;
+  z-index: 6;
+  padding: 2.6rem 1.2rem 3.8rem;
+}
+
+#wall:target {
+  display: block;
+}
+
+#wall:target ~ #s0 {
+  display: none;
+}
+
+.wall-head {
+  text-align: center;
+  margin: 0.6rem auto 2.4rem;
+  padding: 0 1rem;
+}
+
+.wall-title {
+  font-family: Georgia, "Times New Roman", "STZhongsong", "SimSun", serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  background: linear-gradient(180deg, #fff6cf 0%, #f3c74f 46%, #b8860b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(255, 205, 110, 0.45));
+}
+
+.wall-sub {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+  text-transform: uppercase;
+  color: rgba(243, 199, 79, 0.72);
+}
+
+.wall-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 0.4rem 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+
+.wall-row {
+  overflow: hidden;
+}
+
+.wall-track {
+  display: flex;
+  gap: 1.2rem;
+  width: max-content;
+  will-change: transform;
+  animation: wall-scroll var(--speed, 70s) linear infinite;
+}
+
+.wall-row.reverse .wall-track {
+  animation-direction: reverse;
+}
+
+@keyframes wall-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
+}
+
+.wall-item {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 9px;
+  border-radius: 3px;
+  background:
+    linear-gradient(135deg, #fbeeb0 0%, #d3a52c 22%, #fff6cf 50%, #9c7412 78%, #f4e29a 100%);
+  box-shadow:
+    0 0 0 1px #3d2c08,
+    0 0 0 2.5px #7a5a16,
+    inset 0 0 0 1px rgba(255, 252, 235, 0.95),
+    inset 0 0 0 4px rgba(150, 110, 30, 0.5),
+    inset 0 0 9px rgba(70, 45, 8, 0.55),
+    0 10px 26px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(255, 205, 110, 0.32);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wall-item img {
+  display: block;
+  height: clamp(150px, 19vw, 205px);
+  width: auto;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(25, 18, 6, 0.75);
+}
+
+.wall-item:hover {
+  transform: translateY(-8px) scale(1.06);
+  box-shadow:
+    0 0 0 1px #3d2c08,
+    0 0 0 2.5px #8a6a1e,
+    inset 0 0 0 1px rgba(255, 252, 235, 0.95),
+    inset 0 0 0 4px rgba(150, 110, 30, 0.5),
+    inset 0 0 9px rgba(70, 45, 8, 0.55),
+    0 18px 38px rgba(0, 0, 0, 0.6),
+    0 0 34px rgba(255, 215, 120, 0.65);
+  z-index: 2;
+}
+
+/* —— 相册墙页右侧悬浮的魔法扫帚 —— */
+.wall-broom {
+  position: fixed;
+  right: 2.5%;
+  bottom: 9%;
+  width: clamp(56px, 6.5vw, 92px);
+  z-index: 7;
+  pointer-events: none;
+  filter: drop-shadow(0 0 12px rgba(255, 220, 140, 0.65));
+  transform-origin: 50% 20%;
+  animation: broom-float 5.5s ease-in-out infinite;
+}
+
+.wall-broom svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@keyframes broom-float {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50%      { transform: translateY(-18px) rotate(-4deg); }
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -457,4 +769,27 @@ body:has(.bday-root) .md-content {
   font-size: 0.92rem;
   text-decoration: none;
   border-bottom: 1px dashed #f3c74f;
+}
+
+/* —— 第二幕底部：进入魔法相册按钮 —— */
+.next-btn {
+  display: block;
+  width: fit-content;
+  margin: 1.5rem auto 0.8rem;
+  padding: 0.7rem 1.7rem;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(243, 199, 79, 0.55);
+  color: #ffe9a8 !important;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  box-shadow: 0 3px 16px rgba(255, 205, 110, 0.25);
+  opacity: 0;
+  animation: text-rise 1s ease-out 7.4s forwards;
+}
+
+.next-btn:hover {
+  background: rgba(212, 175, 55, 0.24);
+  border-color: rgba(243, 199, 79, 0.85);
 }

@@ -264,6 +264,28 @@
     <div class="star-layer s3"></div>
   </div>
 
+<!-- 金色魔法光点（JS 生成） -->
+<div class="sparkles" aria-hidden="true"></div>
+
+<!-- 流星 -->
+<div class="meteors" aria-hidden="true">
+  <span class="meteor m1"></span>
+  <span class="meteor m2"></span>
+  <span class="meteor m3"></span>
+</div>
+
+<!-- 魔法薄雾 -->
+<div class="mist" aria-hidden="true"></div>
+
+<!-- 守护神（银色发光小鹿） -->
+<div class="patronus" aria-hidden="true">🦌</div>
+
+<!-- 咒语文字（JS 生成） -->
+<div class="spells" aria-hidden="true"></div>
+
+<!-- 漂浮羽毛笔 -->
+<div class="quill" aria-hidden="true">🪶</div>
+
 &#x20; <!-- 物理烟花画布 + 脚本（脚本只在本页加载） -->
 
 <canvas id="fwSky"></canvas>
@@ -295,14 +317,60 @@
       蚊子咬永远是可以让我们放心依靠的存在（人形AI）嘻嘻。
       新的一岁，
       快乐会像有求必应屋里的烟花一样灿烂，烦恼会像被「消失咒」清空一样悄悄不见
-      愿你被魔法世界温柔以待，
-      也永远被我们坚定地爱着 💙
+       💙
 </p>
 <div class="sign">永远的好朋友 ❤️　小兔 🐰 ｜ 小猫 🐱</div>
 
 </div>
 
 <div class="replay"><a href="#">↺ 想再看一遍魔法烟花？点这里重播</a></div>
+
+<a class="next-btn" href="#wall">🪄 进入魔法相册 🪄</a>
+
+</section>
+
+<!-- 第三幕：霍格沃茨魔法相册照片墙 -->
+
+<section id="wall">
+
+<div class="wall-head">
+    <div class="wall-title">魔法相册</div>
+    <div class="wall-sub">Memories</div>
+  </div>
+
+<div class="wall-rows"></div>
+
+<div class="wall-broom" aria-hidden="true">
+    <svg viewBox="0 0 100 250">
+      <defs>
+        <linearGradient id="broomWood" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#6b3f18"/>
+          <stop offset="0.5" stop-color="#b3763a"/>
+          <stop offset="1" stop-color="#5e3512"/>
+        </linearGradient>
+        <linearGradient id="broomStraw" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f0daa0"/>
+          <stop offset="1" stop-color="#9c7a34"/>
+        </linearGradient>
+        <linearGradient id="broomBand" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff2c0"/>
+          <stop offset="0.5" stop-color="#d4af37"/>
+          <stop offset="1" stop-color="#8a6d1a"/>
+        </linearGradient>
+      </defs>
+      <rect x="45" y="6" width="11" height="150" rx="5.5" fill="url(#broomWood)"/>
+      <rect x="41" y="146" width="19" height="16" rx="4" fill="url(#broomBand)"/>
+      <path d="M41 160 L60 160 L76 232 Q50 246 24 232 Z" fill="url(#broomStraw)"/>
+      <g stroke="#8a6a2e" stroke-width="1.6" opacity="0.55" stroke-linecap="round">
+        <line x1="45" y1="164" x2="34" y2="230"/>
+        <line x1="50" y1="164" x2="44" y2="238"/>
+        <line x1="55" y1="164" x2="56" y2="238"/>
+        <line x1="58" y1="164" x2="66" y2="230"/>
+      </g>
+    </svg>
+  </div>
+
+<div class="replay"><a href="#photos">↺ 回到生日祝福</a></div>
 
 </section>
 
