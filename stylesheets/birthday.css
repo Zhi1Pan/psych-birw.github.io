@@ -14,6 +14,12 @@ body:has(.bday-root) {
   background: #0b0d1a url("../assets/images/hogwarts-bg.jpg") center / cover no-repeat fixed;
 }
 
+/* 第二幕（照片页）单独换一张城堡背景 */
+html:has(#photos:target),
+body:has(#photos:target) {
+  background-image: url("../assets/images/hogwarts-act2.jpg");
+}
+
 body:has(.bday-root) .md-main,
 body:has(.bday-root) .md-main__inner,
 body:has(.bday-root) .md-content,
