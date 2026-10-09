@@ -522,7 +522,7 @@ body:has(#wall:target) .patronus {
   display: none;
   position: relative;
   z-index: 6;
-  padding: 2.6rem 1.2rem 3.8rem;
+  padding: 1.2rem 1.2rem 3.8rem;
 }
 
 #wall:target {
@@ -535,7 +535,7 @@ body:has(#wall:target) .patronus {
 
 .wall-head {
   text-align: center;
-  margin: 0.6rem auto 2.4rem;
+  margin: 0 auto 2.4rem;
   padding: 0 1rem;
 }
 
@@ -624,7 +624,7 @@ body:has(#wall:target) .patronus {
 
 .wall-item img {
   display: block;
-  height: clamp(170px, 23vw, 260px);
+  height: clamp(150px, 20vw, 225px);
   width: auto;
   border-radius: 1px;
   box-shadow: 0 1px 3px rgba(60, 40, 10, 0.5), 0 0 0 1px rgba(120, 92, 48, 0.4);
