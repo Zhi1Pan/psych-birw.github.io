@@ -37,8 +37,14 @@
   function explode(x, y, count, big) {
     if (parts.length > 1100) return;
     var pal = PALETTES[(Math.random() * PALETTES.length) | 0];
-    var power = big ? rnd(4.4, 7.2) : rnd(2.0, 3.4);
-    for (var i = 0; i < count; i++) {
+    /* 祝福页（#photos）也做出大小/粗细差异，且对比再强一些 */
+    var onPhotos = location.hash === "#photos";
+    var sizeScale = onPhotos ? rnd(0.45, 1.9) : rnd(0.55, 1.6);
+    var power = (big ? rnd(4.4, 7.2) : rnd(2.0, 3.4)) * sizeScale;
+    var wScale = onPhotos ? rnd(0.6, 2.4) : rnd(0.7, 2.2);
+    /* 炸得越大，粒子越多 */
+    var n = Math.max(12, Math.round(count * (0.7 + 0.4 * sizeScale)));
+    for (var i = 0; i < n; i++) {
       var a = rnd(0, Math.PI * 2);
       var sp = Math.pow(Math.random(), 0.55) * power;
       var col = pal[(Math.random() * pal.length) | 0];
@@ -51,6 +57,7 @@
         max: big ? rnd(85, 165) : rnd(55, 100),
         col: col,
         big: big,
+        w: (big ? 1.9 : 1.25) * wScale * rnd(0.85, 1.2),
         fade: rnd(0.983, 0.992)
       });
     }
@@ -155,7 +162,7 @@
       var alpha = a * gAlpha;
 
       ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (alpha * 0.85) + ")";
-      ctx.lineWidth = p.big ? 2.6 : 1.5;
+      ctx.lineWidth = p.w;
       ctx.beginPath();
       ctx.moveTo(p.x - p.vx * 2.2, p.y - p.vy * 2.2);
       ctx.lineTo(p.x, p.y);
