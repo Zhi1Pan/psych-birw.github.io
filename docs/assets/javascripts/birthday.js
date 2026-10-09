@@ -75,11 +75,11 @@
     if (performance.now() > nextLaunch) {
       nextLaunch = performance.now() + interval * rnd(0.6, 1.5);
       var bx = rnd(W * 0.05, W * 0.95);
-      launch(bx, photos ? 0.06 : 0.1, photos ? 0.32 : 0.62);
+      launch(bx, photos ? 0.05 : 0.06, photos ? 0.24 : 0.42);
       /* 追加第二发：开场约 1/3，照片页约 1/5 */
       if (Math.random() < (photos ? 0.2 : 0.33)) {
         (function (xx) {
-          setTimeout(function () { launch(xx + rnd(-60, 60), photos ? 0.06 : 0.1, photos ? 0.32 : 0.62); }, 170);
+          setTimeout(function () { launch(xx + rnd(-60, 60), photos ? 0.05 : 0.06, photos ? 0.24 : 0.42); }, 170);
         })(bx);
       }
     }
@@ -175,13 +175,13 @@
 
   /* 开场齐射：五发同升 + 两朵中心大花，第一秒即绚烂 */
   setTimeout(function () {
-    launch(W * 0.16, 0.1, 0.6);
-    launch(W * 0.32, 0.1, 0.6);
-    launch(W * 0.5, 0.1, 0.6);
-    launch(W * 0.68, 0.1, 0.6);
-    launch(W * 0.84, 0.1, 0.6);
-    explode(W * 0.34, H * 0.34, 110, true);
-    explode(W * 0.66, H * 0.3, 110, true);
+    launch(W * 0.16, 0.06, 0.42);
+    launch(W * 0.32, 0.06, 0.42);
+    launch(W * 0.5, 0.06, 0.42);
+    launch(W * 0.68, 0.06, 0.42);
+    launch(W * 0.84, 0.06, 0.42);
+    explode(W * 0.34, H * 0.24, 110, true);
+    explode(W * 0.66, H * 0.2, 110, true);
   }, 180);
 
   requestAnimationFrame(step);
